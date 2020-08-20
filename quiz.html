@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<title>{{.Title}}</title>
+</head>
+
+<script type='text/javascript'>
+ $(document).ready(function() {
+   $('input[name=quizSelect]').change(function(){
+     $('form').submit();
+   });
+});
+</script>
+
+<body>
+  <p>Score: {{.Correct}}/{{.Answered}}</p>
+  {{with $1:=.Question}}
+
+  <p>
+  Question : {{.Qsn}}
+  </p>
+
+    <form action="/score" method="post">
+      {{range $i, $a := .Ans}}
+           <input type="radio" name=quizSelect value={{$i}}> {{$a}}</input>
+           <br>
+         {{end}}
+    </form>
+  {{end}}
+
+</body>
+</html>
